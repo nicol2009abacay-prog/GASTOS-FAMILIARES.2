@@ -9,5 +9,8 @@ async function iniciarSesion(email, password) {
 }
 
 supabase.auth.onAuthStateChange((event, session) => {
-  if (!session) window.location.href = "login.html";
+  const enLogin = window.location.pathname.endsWith("login.html");
+  if (!session && !enLogin) {
+    window.location.href = "login.html";
+  }
 });
