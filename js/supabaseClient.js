@@ -9,7 +9,7 @@
 
 (function () {
   const SUPABASE_URL = "https://qrwcsqrjtwmbryxcsxea.supabase.co";
-  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFyd2NzcXJqdHdtYnJ5eGNzeGVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU1MTk3MjgsImV4cCI6MjEwMTA5NTcyOH0.Vv6aHVy410leO6YZzWY0Fk1WPYgvljLbLvDXGOKIm60";
+  const SUPABASE_ANON_KEY = "sb_publishable_IRtV6mzWLc-ukRmmvR-69Q_zcpw7wAr";
 
   window.supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 })();

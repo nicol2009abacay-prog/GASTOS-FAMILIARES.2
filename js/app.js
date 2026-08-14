@@ -104,16 +104,16 @@ const form = document.getElementById("formGasto");
 const btnCancelar = document.getElementById("btnCancelar");
 
 form.addEventListener("submit", async (e) => { 
- e.preventDefault(); 
-  
-  const { data: { user } } = await supabase.auth.getUser(); 
-  
-  const gasto = { 
-    descripcion: document.getElementById("descripcion").value.trim(), 
-    monto: parseFloat(document.getElementById("monto").value), 
-    categoria: document.getElementById("categoria").value, 
-    fecha: document.getElementById("fecha").value, 
-    usuario_id: user.id, 
+  e.preventDefault();
+
+  const { data: { user } } = await supabase.auth.getUser();
+
+  const gasto = {
+    descripcion: document.getElementById("descripcion").value.trim(),
+    monto: parseFloat(document.getElementById("monto").value),
+    categoria: document.getElementById("categoria").value,
+    fecha: document.getElementById("fecha").value,
+    usuario_id: user.id,
   };
 
   if (editando) {
