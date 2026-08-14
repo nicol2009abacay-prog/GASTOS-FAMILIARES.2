@@ -200,6 +200,7 @@ window.eliminarGasto = async function (id) {
   const { error } = await supabase.from("gastos").delete().eq("id", id);
   if (error) return mostrarToast("Error al eliminar: " + error.message, "error");
 
+  mostrarToast("Gasto eliminado correctamente", "exito");
   await cargarGastos();
 };
 
