@@ -91,44 +91,63 @@
         required
         placeholder="Contraseña"
       >
+       <button type="submit" id="btnEntrar">Iniciar sesión</button>
 
-      <button type="submit">Iniciar sesión</button>
-
+<p id="toggleTexto" style="text-align:center; margin-top:15px;">
+  ¿No tienes cuenta? <a href="#" id="toggleLink">Regístrate aquí</a>
+</p>
     </form>
 
     <p id="mensaje"></p>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/supabaseClient.js"></script>
+<script src="js/supabaseClient.js"></script>
+<script src="js/auth.js"></script>
 
-  <script>
-    const form = document.getElementById("loginForm");
-    const mensaje = document.getElementById("mensaje");
+<script>
+  const form = document.getElementById("loginForm");
+  const mensaje = document.getElementById("mensaje");
+  const btnEntrar = document.getElementById("btnEntrar");
+  const toggleTexto = document.getElementById("toggleTexto");
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
+  let modoRegistro = false;
 
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
+  toggleTexto.addEventListener("click", (e) => {
+    if (e.target.id !== "toggleLink") return;
+    e.preventDefault();
+    modoRegistro = !modoRegistro;
 
-      mensaje.textContent = "Iniciando sesión...";
+    if (modoRegistro) {
+      btnEntrar.textContent = "Registrarme";
+      toggleTexto.innerHTML = '¿Ya tienes cuenta? <a href="#" id="toggleLink">Inicia sesión aquí</a>';
+    } else {
+      btnEntrar.textContent = "Iniciar sesión";
+      toggleTexto.innerHTML = '¿No tienes cuenta? <a href="#" id="toggleLink">Regístrate aquí</a>';
+    }
+  });
 
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password
-      });
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-      if (error) {
-        mensaje.textContent = "❌ " + error.message;
-        return;
-      }
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-      mensaje.textContent = "✅ Sesión iniciada";
+    mensaje.textContent = modoRegistro ? "Registrando..." : "Iniciando sesión...";
 
-      window.location.href = "index.html";
-    });
-  </script>
+    const { data, error } = modoRegistro
+      ? await registrar(email, password)
+      : await iniciarSesion(email, password);
+
+    if (error) {
+      mensaje.textContent = "❌ " + error.message;
+      return;
+    }
+
+    mensaje.textContent = modoRegistro ? "✅ Cuenta creada" : "✅ Sesión iniciada";
+    window.location.href = "index.html";
+  });
+</script>
 
 </body>
 </html>
