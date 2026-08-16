@@ -105,9 +105,8 @@ const btnCancelar = document.getElementById("btnCancelar");
 
 form.addEventListener("submit", async (e) => { 
   e.preventDefault();
-
   const { data: { user } } = await supabase.auth.getUser();
-
+  
   const gasto = {
     descripcion: document.getElementById("descripcion").value.trim(),
     monto: parseFloat(document.getElementById("monto").value),
